@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Collection');
     }
+    
+    public function groups()
+    {
+        return $this->hasMany('App\Group');
+    }
 }
