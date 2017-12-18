@@ -10,4 +10,9 @@ class Collection extends Model
     {
         return $this->belongsTo('App\Language');
     }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
 }
