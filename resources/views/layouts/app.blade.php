@@ -80,9 +80,11 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-8">
-                    @yield('content')
-                </div>
+                @if(Auth::check())
+                    <div class="col-sm-8">
+                        @yield('content')
+                    </div>
+                @endif
             </div>
         </div>
     </div>
