@@ -8,7 +8,7 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nazwa zbioru</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name" class="form-control" required>
             </div>
             <div class="form-group">
                 <button class="btn btn-success" type="submit">Utwórz zbiór</button>
