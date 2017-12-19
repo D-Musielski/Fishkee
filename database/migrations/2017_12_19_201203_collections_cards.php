@@ -16,6 +16,7 @@ class CollectionsCards extends Migration
         Schema::create('collections_cards', function (Blueprint $table) {
             $table->integer('collection_id')->unsigned();
             $table->integer('card_id')->unsigned();
+            $table->boolean('knows')->default(0);
             $table->primary(['collection_id','card_id']);
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('CASCADE');
             $table->foreign('card_id')->references('id')->on('cards')->onDelete('CASCADE');
