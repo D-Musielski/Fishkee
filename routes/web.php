@@ -19,7 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/collection/create', [
-    'uses'  => 'CollectionsController@create',
-    'as'    => 'collection.create'
-]);
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/collection/create', [
+        'uses'  => 'CollectionsController@create',
+        'as'    => 'collection.create'
+    ]);
+    
+    Route::post('/collection/store', [
+        'uses'  => 'CollectionsController@store',
+        'as'    => 'collection.store'
+    ]);
+});
