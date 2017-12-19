@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/collection/create', [
+    'uses'  => 'CollectionsController@create',
+    'as'    => 'collection.create'
+]);

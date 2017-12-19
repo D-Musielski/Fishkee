@@ -71,7 +71,20 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{route('collection.create')}}">Nowy zbiór fiszek</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-8">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

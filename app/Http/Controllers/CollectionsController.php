@@ -23,7 +23,7 @@ class CollectionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.collections.create');
     }
 
     /**
