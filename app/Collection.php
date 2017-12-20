@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
 {
+
+    protected $fillable = [
+        'name',
+        'language_id',
+        'category_id',
+        'user_id'
+    ];
+
     public function language()
     {
         return $this->belongsTo('App\Language');
