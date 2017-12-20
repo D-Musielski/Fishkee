@@ -11,6 +11,23 @@
                 <input type="text" name="name" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="language">Język</label>
+                <select name="language_id" id="language" class="form-control">
+                    @foreach($langs as $lang)
+                        <option value="{{$lang->id}}">{{$lang->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">Kategoria</label>
+                <select name="category_id" id="category" class="form-control">
+                    @foreach($cats as $cat)
+                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <input type="hidden" name="user_id" value="{{$user_id}}">
+            <div class="form-group">
                 <button class="btn btn-success" type="submit">Utwórz zbiór</button>
             </div>
         </form>

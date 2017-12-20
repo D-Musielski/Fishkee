@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Language;
+use App\Category;
+use App\Collection;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CollectionsController extends Controller
@@ -23,7 +28,10 @@ class CollectionsController extends Controller
      */
     public function create()
     {
-        return view('user.collections.create');
+        $langs = Language::all();
+        $cats = Category::all();
+        $user_id = Auth::id();
+        return view('user.collections.create', compact('langs', 'cats', 'user_id'));
     }
 
     /**
@@ -34,7 +42,14 @@ class CollectionsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $collection = Collection::create([
+            'name' => $request->name,
+            'language_id' => $request->language_id,
+            'category_id' => $request->category_id,
+            'user_id' => $request->user_id
+        ]);
+
+        return redirect()->back();
     }
 
     /**
