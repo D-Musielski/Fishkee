@@ -78,13 +78,14 @@
                         <li class="list-group-item">
                             <a href="{{route('collection.create')}}">Nowy zbiór fiszek</a>
                         </li>
+                        <li class="list-group-item">
+                            <a href="{{route('collections')}}">Zbiory</a>
+                        </li>
                     </ul>
                 </div>
-                @if(Auth::check())
-                    <div class="col-sm-8">
-                        @yield('content')
-                    </div>
-                @endif
+                <div class="col-sm-8">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
