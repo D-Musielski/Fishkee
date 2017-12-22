@@ -20,6 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
+    Route::get('/collections', [
+        'uses'  => 'CollectionsController@index',
+        'as'    => 'collections'
+    ]);
+    
     Route::get('/collection/create', [
         'uses'  => 'CollectionsController@create',
         'as'    => 'collection.create'
@@ -28,5 +33,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/collection/store', [
         'uses'  => 'CollectionsController@store',
         'as'    => 'collection.store'
+        ]);
+   
+    Route::get('/collection/edit/{id}', [
+        'uses'  => 'CollectionsController@edit',
+        'as'    => 'collection.edit'
+    ]);
+
+    Route::get('/collection/delete/{id}', [
+        'uses'  => 'CollectionsController@delete',
+        'as'    => 'collection.delete'
     ]);
 });
