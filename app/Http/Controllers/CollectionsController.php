@@ -18,7 +18,9 @@ class CollectionsController extends Controller
      */
     public function index()
     {
-        //
+        $collection = new Collection();
+        $collections = $collection->userCollections(Auth::id());
+        return view('user.collections.index', compact('collections'));
     }
 
     /**
@@ -71,7 +73,9 @@ class CollectionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $collection = Collection::find($id);
+
+        return view('user.collections.edit', compact('collection'));
     }
 
     /**
