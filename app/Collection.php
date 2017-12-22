@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
@@ -34,4 +35,8 @@ class Collection extends Model
         return $this->hasMany('App\Card');
     }
 
+    public function userCollections($id)
+    {
+        return $this->where('user_id', $id)->get();
+    }
 }
