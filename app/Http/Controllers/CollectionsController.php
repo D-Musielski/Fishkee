@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Language;
+use App\Card;
 use App\Category;
 use App\Collection;
 
@@ -74,8 +75,9 @@ class CollectionsController extends Controller
     public function edit($id)
     {
         $collection = Collection::find($id);
+        $cards = $collection->cards;
 
-        return view('user.collections.edit', compact('collection'));
+        return view('user.collections.edit', compact('collection', 'cards'));
     }
 
     /**
@@ -87,7 +89,9 @@ class CollectionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (isset($request->front) && isset($request->back)) {
+            
+        }
     }
 
     /**
