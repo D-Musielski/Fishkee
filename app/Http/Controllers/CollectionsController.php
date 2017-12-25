@@ -52,7 +52,7 @@ class CollectionsController extends Controller
             'user_id' => $request->user_id
         ]);
 
-        return redirect()->back();
+        return redirect()->route('collections');
     }
 
     /**
@@ -89,9 +89,27 @@ class CollectionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (isset($request->front) && isset($request->back)) {
-            
+        $cards = Card::all();
+        $collection = Collection::find($id);
+        if ($collection->name != $request->name) {
+            $collection->name = $request->name;
+            $collection->save();
         }
+        if ($request->front != '' && $request->back != '') {
+            
+            if ($cards->where('front', $request->front)->count() > 0 && $cards->where('back', $request->back)->count() > 0) {
+                $card = $cards->where('front', $request->front)->where('back', $request->back);
+                $collection->cards()->attach($card);
+            } else {
+                $card = Card::create([
+                    'front' => $request->front,
+                    'back' => $request->back
+                ]);
+                $collection->cards()->attach($card);
+            }
+        }
+                
+        return redirect()->back();
     }
 
     /**
