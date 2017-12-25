@@ -40,6 +40,11 @@ Route::group(['middleware' => 'auth'], function(){
         'as'    => 'collection.edit'
     ]);
 
+    Route::post('/collection/update/{id}', [
+        'uses'  => 'CollectionsController@update',
+        'as'    => 'collection.update'
+    ]);
+
     Route::get('/collection/delete/{id}', [
         'uses'  => 'CollectionsController@delete',
         'as'    => 'collection.delete'
