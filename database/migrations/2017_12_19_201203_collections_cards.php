@@ -29,6 +29,6 @@ class CollectionsCards extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('card_collection');
     }
 }
