@@ -4,7 +4,7 @@
         Edytuj {{$collection->name}}
     </div>
     <div class="panel-body">
-        <form action="{{ route('collection.store') }}" method="post">
+        <form action="{{ route('collection.update', [ 'id' => $collection->id ]) }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nazwa zbioru</label>
@@ -12,17 +12,24 @@
             </div>
             <div class="form-group">
                 <label for="cards">Fiszki</label>
-                @foreach($cards as $card)
-                    <input type="text" name="front[]" class="form-control" value="{{$card->front}}" required>
-                    <input type="text" name="back[]" class="form-control" value="{{$card->back}}" required>
-                @endforeach
+                @if($cards->count() > 0)
+                    @foreach($cards as $card)
+                        <input type="text" name="fronty[]" class="form-control" value="{{$card->front}}" required>
+                        <input type="text" name="backi[]" class="form-control" value="{{$card->back}}" required>
+                        <br>
+                    @endforeach
+                @else
+                    <h3 class="text-center">Nie masz jeszcze żadnych fiszek</h3>
+                @endif
                 </select>
             </div>
             <div class="form-group">
-                <label for="cards">Fiszki</label>
-                    <input type="text" name="front" class="form-control" required>
-                    <input type="text" name="back" class="form-control"  required>
-                </select>
+                <label for="front">Przód fiszki</label>
+                <input type="text" name="front" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="back">Tył fiszki</label>
+                <input type="text" name="back" class="form-control">
             </div>
             {{--  <input type="hidden" name="user_id" value="{{$user_id}}">  --}}
             <div class="form-group text-center">
