@@ -49,4 +49,14 @@ Route::group(['middleware' => 'auth'], function(){
         'uses'  => 'CollectionsController@delete',
         'as'    => 'collection.delete'
     ]);
+
+    Route::get('/card/delete/{collection_id}/{id}', [
+        'uses'  => 'CardsController@deleteCard',
+        'as'    => 'card.delete'
+    ]);
+
+    // Route::get('/card/update/{collection_id}/{front}-{back}', [
+    //     'uses'  => 'CardsController@update',
+    //     'as'    => 'card.update'
+    // ]);
 });
