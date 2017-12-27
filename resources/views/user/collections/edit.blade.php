@@ -16,6 +16,9 @@
                     @foreach($cards as $card)
                         <input type="text" name="fronty[]" class="form-control" value="{{$card->front}}" required>
                         <input type="text" name="backi[]" class="form-control" value="{{$card->back}}" required>
+                        {{--  <a class="btn btn-info" href="{{ route('card.update', ['collection_id' => $collection->id, 'front' => $card->front, 'back' => $card->back]) }}">Edytuj</a>  --}}
+                        <a class="btn btn-danger" href="{{ route('card.delete', ['collection_id' => $collection->id, 'id' => $card->id]) }}">Usuń</a>
+                        <br>
                         <br>
                     @endforeach
                 @else

@@ -91,10 +91,32 @@ class CollectionsController extends Controller
     {
         $cards = Card::all();
         $collection = Collection::find($id);
+
+        // Collection name change
         if ($collection->name != $request->name) {
             $collection->name = $request->name;
             $collection->save();
         }
+        // Collection name change
+
+        /* TODO */
+        // Check if some of the cards changed
+        // if ($request->fronty != null) {
+        //     for ($i = 0; $i < sizeof($request->fronty); $i++) {
+        //         if ($cards->where('front',$request->fronty[$i])->count() == 0 || $cards->where('back',$request->backi[$i])->count() == 0) {
+        //             $card = Card::create([
+        //                 'front' => $request->fronty[$i],
+        //                 'back' => $request->backi[$i]
+        //             ]);
+        //             $collection->cards()->attach($card);
+        //         } else {
+        //             $collection->cards()->sync($cards->where('front',$request->fronty[$i]));
+        //         }
+        //     }
+        // }
+        // Check if some of the cards changed
+
+        // Add new card to collection
         if ($request->front != '' && $request->back != '') {
             
             if ($cards->where('front', $request->front)->count() > 0 && $cards->where('back', $request->back)->count() > 0) {
@@ -108,6 +130,9 @@ class CollectionsController extends Controller
                 $collection->cards()->attach($card);
             }
         }
+        // Add new card to collection
+        
+        
                 
         return redirect()->back();
     }
