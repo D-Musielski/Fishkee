@@ -68,24 +68,28 @@ class CardsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($collection_id, $front, $back)
+    public function update($collection_id, $card_id, $front, $back)
     {
-        // $cards = Card::all();
+        $collection = Collection::find($collection_id);
+        $card = $collection->cards()->find($card_id);
+        dd($card->front, $front);
+        if ($card->front != $front || $card->back != $back) {
+            dd('asd');
+            $existingCard = Card::where('front', $front)->where('back', $back)->first();
+            if ($existingCard != null) {
+                $collection->cards()->detach($card);
+                $collection->cards()->attach($existingCard);
+            } else {
+                $newCard = Card::create([
+                    'front' => $front,
+                    'back' => $back
+                    ]);
+                $collection->cards()->detach($card);
+                $collection->cards()->attach($newCard);
+            }
+        }
         
-        // if($cards->where('front', $front)->where('back', $back)) {
-        //     $card = $cards->where('front', $front)->where('back', $back);
-        //     $collection = Collection::find($collection_id);
-        //     $collection->cards()->attach($card);
-        // } else {
-        //     $card = Card::create([
-        //         'front' => $front,
-        //         'back' => $back
-        //     ]);
-        //     $collection = Collection::find($collection_id);
-        //     $collection->cards()->attach($card);
-        // }
-
-        // return redirect()->route('collections');
+        return redirect()->route('collection.edit', ['id' => $collection_id]);
     }
 
     /**
