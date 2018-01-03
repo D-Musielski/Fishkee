@@ -81,6 +81,9 @@
                         <li class="list-group-item">
                             <a href="{{route('collections')}}">Zbiory</a>
                         </li>
+                        <li class="list-group-item">
+                            <a href="{{route('learn')}}">Nauka</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-sm-8">

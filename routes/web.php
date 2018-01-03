@@ -55,8 +55,23 @@ Route::group(['middleware' => 'auth'], function(){
         'as'    => 'card.delete'
     ]);
 
-    // Route::get('/card/update/{collection_id}/{front}-{back}', [
-    //     'uses'  => 'CardsController@update',
-    //     'as'    => 'card.update'
-    // ]);
+    Route::get('/card/update/{collection_id}/{card_id}/{front}-{back}', [
+        'uses'  => 'CardsController@update',
+        'as'    => 'card.update'
+    ]);
+
+    Route::get('/learn', [
+        'uses'  => 'LearnController@index',
+        'as'    => 'learn'
+    ]);
+
+    Route::get('/learn/{id}', [
+        'uses'  => 'LearnController@learn',
+        'as'    => 'learn.start'
+    ]);
+    
+    Route::post('/learn/{collection_id}/{card_id}', [
+        'uses'  => 'LearnController@know',
+        'as'    => 'learn.know'
+    ]);
 });
