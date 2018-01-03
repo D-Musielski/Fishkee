@@ -32,7 +32,7 @@ class Collection extends Model
 
     public function cards()
     {
-        return $this->belongsToMany('App\Card');
+        return $this->belongsToMany('App\Card')->withPivot('knows');
     }
 
     public function userCollections($id)
