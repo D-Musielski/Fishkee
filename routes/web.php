@@ -74,4 +74,29 @@ Route::group(['middleware' => 'auth'], function(){
         'uses'  => 'LearnController@know',
         'as'    => 'learn.know'
     ]);
+
+    Route::get('/groups', [
+        'uses'  => 'GroupsController@index',
+        'as'    => 'groups'
+    ]);
+
+    Route::get('/group/create', [
+        'uses'  => 'GroupsController@create',
+        'as'    => 'group.create'
+    ]);
+    
+    Route::post('/group/store', [
+        'uses'  => 'GroupsController@store',
+        'as'    => 'group.store'
+    ]);
+
+    Route::get('/group/edit/{id}', [
+        'uses'  => 'GroupsController@edit',
+        'as'    => 'group.edit'
+    ]);
+
+    Route::get('/group/delete/{id}', [
+        'uses'  => 'GroupsController@destroy',
+        'as'    => 'group.delete'
+    ]);
 });
