@@ -84,6 +84,12 @@
                         <li class="list-group-item">
                             <a href="{{route('learn')}}">Nauka</a>
                         </li>
+                        <li class="list-group-item">
+                            <a href="{{route('group.create')}}">Nowa grupa</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{route('groups')}}">Grupy</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-sm-8">
