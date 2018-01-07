@@ -95,8 +95,23 @@ Route::group(['middleware' => 'auth'], function(){
         'as'    => 'group.edit'
     ]);
 
+    Route::post('/group/update/{id}', [
+        'uses'  => 'GroupsController@update',
+        'as'    => 'group.update'
+    ]);
+    
     Route::get('/group/delete/{id}', [
         'uses'  => 'GroupsController@destroy',
         'as'    => 'group.delete'
+        ]);
+        
+    Route::get('/group/deleteUser/{group_id}/{user_id}', [
+        'uses'  => 'GroupsController@deleteUser',
+        'as'    => 'group.deleteUser'
+    ]);
+    
+    Route::post('/group/addUser', [
+        'uses'  => 'GroupsController@addUser',
+        'as'    => 'group.addUser'
     ]);
 });
