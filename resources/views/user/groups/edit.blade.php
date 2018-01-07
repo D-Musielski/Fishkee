@@ -4,16 +4,18 @@
         Grupa: {{$group->name}}
     </div>
     <div class="panel-body">
-        <form action="{{ route('group.update', [ 'id' => $group->id ]) }}" method="post">
-            {{ csrf_field() }}
-            <div class="form-group">
-                <label for="name">Nazwa grupy</label>
-                <input type="text" name="name" class="form-control" value="{{$group->name}}" required>
-            </div>
-            <div class="form-group text-center">
-                <button class="btn btn-success" type="submit">Zmien</button>
-            </div>
-        </form>
+        @if(Auth::user()->id == $owner_id)
+            <form action="{{ route('group.update', [ 'id' => $group->id ]) }}" method="post">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="name">Nazwa grupy</label>
+                    <input type="text" name="name" class="form-control" value="{{$group->name}}" required>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-success" type="submit">Zmien</button>
+                </div>
+            </form>
+        @endif
         <table class="table table-hover">
             <thead>
                 <th>
@@ -32,14 +34,14 @@
                 @foreach($users as $user)
                     <tr>
                         <td>
-                            {{$user->name}}
+                            {{$user->name}} @if($user->id == $owner_id) (Admin) @endif
                         </td>
                         <td>
                             {{$user->email}}
                         </td>
                         @if(Auth::user()->id == $owner_id)
                         <td>
-                            <a href="{{ route('group.deleteUser', ['id' => $user->id ]) }}" class="btn btn-xs btn-danger">Usuń</a>
+                                @if($user->id != $owner_id) <a href="{{ route('group.deleteUser', ['user_id' => $user->id, 'group_id' => $group->id ]) }}" class="btn btn-xs btn-danger">Usuń</a> @endif
                         </td>
                         @endif 
                     </tr>
@@ -47,6 +49,8 @@
             </tbody>
         </table>
         <form action="{{ route('group.addUser') }}" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="group_id" value="{{ $group->id }}">
             <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="text" name="email" class="form-control">
