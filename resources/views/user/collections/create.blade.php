@@ -26,6 +26,23 @@
                     @endforeach
                 </select>
             </div>
+            <div class="form-group">
+                <label for="rights">Prawa dostępu</label>
+                <select id="rights-form" name="rights" id="rights" class="form-control">
+                    <option value="0">Publiczny</option>
+                    <option value="1">Prywatny</option>
+                    <option value="0">Grupowy</option>
+                </select>
+            </div>
+            <div id="group-form" class="form-group">
+                <label for="group">Grupa</label>
+                <select name="group" id="group" class="form-control">
+                    <option value="0" hidden></option>
+                    @foreach($groups as $group)
+                        <option value="{{$group->id}}">{{$group->name}}</option>
+                    @endforeach
+                </select>
+            </div>
             <input type="hidden" name="user_id" value="{{$user_id}}">
             <div class="form-group">
                 <button class="btn btn-success" type="submit">Utwórz zbiór</button>

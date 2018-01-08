@@ -79,7 +79,10 @@
                             <a href="{{route('collection.create')}}">Nowy zbiór fiszek</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{{route('collections')}}">Zbiory</a>
+                            <a href="{{route('collections')}}">Twoje Zbiory</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{route('collections.browse')}}">Przeglądaj zbiory</a>
                         </li>
                         <li class="list-group-item">
                             <a href="{{route('learn')}}">Nauka</a>
