@@ -24,6 +24,11 @@ Route::group(['middleware' => 'auth'], function(){
         'uses'  => 'CollectionsController@index',
         'as'    => 'collections'
     ]);
+
+    Route::get('/browse-collections', [
+        'uses'  => 'CollectionsController@browse',
+        'as'    => 'collections.browse'
+    ]);
     
     Route::get('/collection/create', [
         'uses'  => 'CollectionsController@create',
@@ -46,7 +51,7 @@ Route::group(['middleware' => 'auth'], function(){
     ]);
 
     Route::get('/collection/delete/{id}', [
-        'uses'  => 'CollectionsController@delete',
+        'uses'  => 'CollectionsController@destroy',
         'as'    => 'collection.delete'
     ]);
 
