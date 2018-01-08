@@ -12,7 +12,9 @@ class Collection extends Model
         'name',
         'language_id',
         'category_id',
-        'user_id'
+        'user_id',
+        'private',
+        'group'
     ];
 
     public function language()
