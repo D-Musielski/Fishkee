@@ -6,6 +6,7 @@ use App\Language;
 use App\Card;
 use App\Category;
 use App\Collection;
+use App\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -34,7 +35,10 @@ class CollectionsController extends Controller
         $langs = Language::all();
         $cats = Category::all();
         $user_id = Auth::id();
-        return view('user.collections.create', compact('langs', 'cats', 'user_id'));
+        $user = User::find($user_id);
+        $groups = $user->groups;
+
+        return view('user.collections.create', compact('langs', 'cats', 'user_id', 'groups'));
     }
 
     /**
@@ -49,7 +53,9 @@ class CollectionsController extends Controller
             'name' => $request->name,
             'language_id' => $request->language_id,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'private' => $request->rights,
+            'group' => $request->group
         ]);
 
         return redirect()->route('collections');
@@ -145,6 +151,49 @@ class CollectionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $collection = Collection::find($id);
+        $collection->delete();
+
+        return redirect()->back();
+    }
+
+    public function browseIndex()
+    {
+        $langs = Language::all();
+        $cats = Category::all();
+
+        return view('user.collections.browse.index', compact('langs','cats'));
+    }
+
+    public function browse(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $groups = $user->groups;
+        $collections = Collection::all();
+        $public = Collection::where('language_id', $request->language_id)
+                            ->where('category_id', $request->category_id)
+                            ->where('private', 0)
+                            ->where('group', 0)
+                            ->get();
+
+        $group = array();
+        foreach ($groups as $g) {
+            $group = $collections->where('group', $g->id);
+        }
+        
+        return view('user.collections.browse.browse', compact('public', 'group'));
+    }
+
+    public function browseCollection($id)
+    {
+        $collection = Collection::find($id);
+        $cards = $collection->cards;
+
+        return view('user.collections.browse.collection', compact('collection', 'cards'));
+    }
+
+    public function add($id)
+    {
+        dd($id);
     }
 }

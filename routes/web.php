@@ -24,11 +24,6 @@ Route::group(['middleware' => 'auth'], function(){
         'uses'  => 'CollectionsController@index',
         'as'    => 'collections'
     ]);
-
-    Route::get('/browse-collections', [
-        'uses'  => 'CollectionsController@browse',
-        'as'    => 'collections.browse'
-    ]);
     
     Route::get('/collection/create', [
         'uses'  => 'CollectionsController@create',
@@ -53,6 +48,26 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/collection/delete/{id}', [
         'uses'  => 'CollectionsController@destroy',
         'as'    => 'collection.delete'
+    ]);
+
+    Route::get('/browse-collections', [
+        'uses'  => 'CollectionsController@browseIndex',
+        'as'    => 'collections.browseIndex'
+    ]);
+
+    Route::post('/browse-collections/browse', [
+        'uses'  => 'CollectionsController@browse',
+        'as'    => 'collections.browse'
+    ]);
+
+    Route::post('/collection/add/{id}', [
+        'uses'  => 'CollectionsController@add',
+        'as'    => 'collection.add'
+    ]);
+
+    Route::get('/browse-collections/browse/{id}', [
+        'uses'  => 'CollectionsController@browseCollection',
+        'as'    => 'collection.browseCollection'
     ]);
 
     Route::get('/card/delete/{collection_id}/{id}', [
