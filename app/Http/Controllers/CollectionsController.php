@@ -105,23 +105,6 @@ class CollectionsController extends Controller
         }
         // Collection name change
 
-        /* TODO */
-        // Check if some of the cards changed
-        // if ($request->fronty != null) {
-        //     for ($i = 0; $i < sizeof($request->fronty); $i++) {
-        //         if ($cards->where('front',$request->fronty[$i])->count() == 0 || $cards->where('back',$request->backi[$i])->count() == 0) {
-        //             $card = Card::create([
-        //                 'front' => $request->fronty[$i],
-        //                 'back' => $request->backi[$i]
-        //             ]);
-        //             $collection->cards()->attach($card);
-        //         } else {
-        //             $collection->cards()->sync($cards->where('front',$request->fronty[$i]));
-        //         }
-        //     }
-        // }
-        // Check if some of the cards changed
-
         // Add new card to collection
         if ($request->front != '' && $request->back != '') {
             
@@ -194,6 +177,48 @@ class CollectionsController extends Controller
 
     public function add($id)
     {
-        dd($id);
+        $collection = Collection::find($id);
+
+        $new_collection = $collection->replicate();
+        $new_collection->user_id = Auth::user()->id;
+        $new_collection->group = 0;
+        $new_collection->save();
+
+        foreach ($collection->cards as $card) {
+            $new_collection->cards()->attach($card);
+        }
+
+        $collection = new Collection();
+        $collections = $collection->userCollections(Auth::id());
+
+        return view('user.collections.index', compact('collections'));
+    }
+
+    public function merge(Request $request)
+    {
+        $collection1 = Collection::find($request->collection1);
+        $collection2 = Collection::find($request->collection2);
+
+        $cards1 = $collection1->cards;
+        $cards2 = $collection2->cards;
+
+        $newCollection = Collection::create([
+            'name' => $collection1->name . ' + ' . $collection2->name,
+            'language_id' => $collection1->language_id,
+            'category_id' => $collection1->category_id,
+            'user_id' => $collection1->user_id,
+            'private' => $collection1->private,
+            'group' => $collection1->group
+        ]);
+
+        foreach ($cards1 as $card) {
+            $newCollection->cards()->attach($card);
+        }
+
+        foreach ($cards2 as $card) {
+            $newCollection->cards()->attach($card);
+        }
+
+        return redirect()->back();
     }
 }

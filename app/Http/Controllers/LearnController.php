@@ -115,15 +115,24 @@ class LearnController extends Controller
     
     public function know($collection_id, $card_id)
     {
-        // dd($collection_id, $card_id);
         $collection = Collection::find($collection_id);
         $cards = $collection->cards;
         $card = $cards->find($card_id);
         $card->pivot->knows = 1;
         $card->pivot->save();
-        // dd($card);
         
-        // $collection->cards()->update($card->toArray(), ['knows' => 1]);
+        return redirect()->back();
+    }
+    
+    public function restart($id)
+    {
+        $collection = Collection::find($id);
+
+        foreach ($collection->cards as $card) {
+            $card->pivot->knows = 0;
+            $card->pivot->update();
+        }
+
         return redirect()->back();
     }
 }

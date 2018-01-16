@@ -19,6 +19,8 @@ class CreateCollectionsTable extends Migration
             $table->integer('language_id');
             $table->integer('category_id');
             $table->integer('user_id');
+            $table->integer('private')->default(0);
+            $table->integer('group')->default(0);
             $table->timestamps();
         });
     }

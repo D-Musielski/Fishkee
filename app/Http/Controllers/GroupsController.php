@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\User;
+use App\Collection;
+use Charts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -71,8 +73,9 @@ class GroupsController extends Controller
         $group = Group::find($id);
         $owner_id = $group->user_id;
         $users = $group->groupUsers;
+        $collections = Collection::where('group', $id)->get();
 
-        return view('user.groups.edit', compact('group', 'owner_id', 'users'));
+        return view('user.groups.edit', compact('group', 'owner_id', 'users', 'collections'));
     }
 
     /**
@@ -120,5 +123,27 @@ class GroupsController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function chart($collection_id)
+    {
+        
+        $chart = Charts::multi('bar', 'material')
+            // Setup the chart settings
+            ->title("My Cool Chart")
+            // A dimension of 0 means it will take 100% of the space
+            ->dimensions(0, 400) // Width x Height
+            // This defines a preset of colors already done:)
+            ->template("material")
+            // You could always set them manually
+            // ->colors(['#2196F3', '#F44336', '#FFC107'])
+            // Setup the diferent datasets (this is a multi chart)
+            ->dataset('Element 1', [5,20,100])
+            ->dataset('Element 2', [15,30,80])
+            ->dataset('Element 3', [25,10,40])
+            // Setup what the values mean
+            ->labels(['One', 'Two', 'Three']);
+
+        return view('user.groups.chart', ['chart' => $chart]);
     }
 }

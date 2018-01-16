@@ -12,7 +12,7 @@
                     <input type="text" name="name" class="form-control" value="{{$group->name}}" required>
                 </div>
                 <div class="form-group text-center">
-                    <button class="btn btn-success" type="submit">Zmien</button>
+                    <button class="btn btn-success" type="submit">Zmień</button>
                 </div>
             </form>
         @endif
@@ -59,6 +59,10 @@
                 <button class="btn btn-success" type="submit">Dodaj</button>
             </div>
         </form>
+        <h4>Postęp nauki użytkowników</h4>
+        @foreach ($collections as $collection)
+            <a href="{{ route('group.chart', ['id' => $collection->id]) }}">{{$collection->name}}</a> <br>
+        @endforeach
     </div>
 </div>
 @endsection

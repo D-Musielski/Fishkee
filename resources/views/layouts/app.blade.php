@@ -8,10 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Fishkee') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('header')
 </head>
 <body>
     <div id="app">
@@ -29,7 +31,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Fishkee') }}
                     </a>
                 </div>
 
@@ -74,6 +76,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
+                    @if (Auth::user())
                     <ul class="list-group">
                         <li class="list-group-item">
                             <a href="{{route('collection.create')}}">Nowy zbiór fiszek</a>
@@ -82,7 +85,7 @@
                             <a href="{{route('collections')}}">Twoje Zbiory</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{{route('collections.browse')}}">Przeglądaj zbiory</a>
+                            <a href="{{route('collections.browseIndex')}}">Przeglądaj zbiory</a>
                         </li>
                         <li class="list-group-item">
                             <a href="{{route('learn')}}">Nauka</a>
@@ -94,6 +97,7 @@
                             <a href="{{route('groups')}}">Grupy</a>
                         </li>
                     </ul>
+                    @endif
                 </div>
                 <div class="col-sm-8">
                     @yield('content')
