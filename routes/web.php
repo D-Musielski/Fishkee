@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/collections', [
@@ -59,7 +57,7 @@ Route::group(['middleware' => 'auth'], function(){
         'uses'  => 'CollectionsController@browse',
         'as'    => 'collections.browse'
     ]);
-
+    
     Route::post('/collection/add/{id}', [
         'uses'  => 'CollectionsController@add',
         'as'    => 'collection.add'
@@ -69,13 +67,18 @@ Route::group(['middleware' => 'auth'], function(){
         'uses'  => 'CollectionsController@browseCollection',
         'as'    => 'collection.browseCollection'
     ]);
+    
+    Route::post('/collections/merge', [
+        'uses'  => 'CollectionsController@merge',
+        'as'    => 'collections.merge'
+    ]);
 
     Route::get('/card/delete/{collection_id}/{id}', [
         'uses'  => 'CardsController@deleteCard',
         'as'    => 'card.delete'
     ]);
 
-    Route::get('/card/update/{collection_id}/{card_id}/{front}-{back}', [
+    Route::post('/card/update/{collection_id}/{card_id}/{front}-{back}', [
         'uses'  => 'CardsController@update',
         'as'    => 'card.update'
     ]);
@@ -88,6 +91,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/learn/{id}', [
         'uses'  => 'LearnController@learn',
         'as'    => 'learn.start'
+    ]);
+
+    Route::get('/learn/restart/{id}', [
+        'uses'  => 'LearnController@restart',
+        'as'    => 'learn.restart'
     ]);
     
     Route::post('/learn/{collection_id}/{card_id}', [
@@ -113,6 +121,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/group/edit/{id}', [
         'uses'  => 'GroupsController@edit',
         'as'    => 'group.edit'
+    ]);
+
+    Route::get('/group/chart/{id}', [
+        'uses'  => 'GroupsController@chart',
+        'as'    => 'group.chart'
     ]);
 
     Route::post('/group/update/{id}', [
